@@ -55,8 +55,8 @@ mqttClient.on("message", async function (topic, message) {
 
         weatherHistory.addRecord(weatherRecord);
 
-        const notification = await requestWeatherNotification();
-
+        //const notification = await requestWeatherNotification();
+        const notification = msg;
         console.log(
             `Send notification to users, content="${notification}"  userIDs="${userIDs}"`
         );
@@ -77,7 +77,7 @@ mqttClient.on("message", async function (topic, message) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+//const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN!);
 
 // Array to store user IDs
@@ -108,14 +108,15 @@ async function requestWeatherNotification(): Promise<string | undefined> {
     const prompt = createOpenAIPrompt();
 
     try {
-        const completion = await openai.chat.completions.create({
+        /*const completion = await openai.chat.completions.create({
             max_tokens: 1000,
             messages: [{ role: "system", content: prompt }],
             model: "gpt-3.5-turbo",
             temperature: 0.6,
-        });
+        });*/
 
-        const message = completion.choices[0].message.content;
+        //const message = completion.choices[0].message.content;
+        const message = "";
         return message ?? undefined;
     } catch (error) {
         console.error("Error calling OpenAI API:", error);
